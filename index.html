@@ -1,1 +1,235 @@
-hii
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Знакомства · Профиль</title>
+  <style>
+    /* reset & base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #f9f0f5 0%, #ffe8f0 100%);
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px 16px;
+      margin: 0;
+      color: #2d1b2b;
+    }
+
+    .dating-card {
+      max-width: 1000px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 48px;
+      box-shadow: 0 25px 50px -8px rgba(180, 60, 100, 0.25),
+                  0 8px 20px -6px rgba(0, 0, 0, 0.05);
+      padding: 32px 24px 40px;
+      border: 1px solid rgba(255, 220, 235, 0.8);
+      transition: all 0.2s ease;
+    }
+
+    /* заголовок h1 */
+    .profile-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .profile-header h1 {
+      font-size: clamp(1.8rem, 6vw, 2.8rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #b3406e, #d45c8a);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 2px 10px rgba(212, 92, 138, 0.15);
+      line-height: 1.2;
+    }
+
+    /* description */
+    .profile-description {
+      text-align: center;
+      margin-bottom: 32px;
+      padding: 0 12px;
+    }
+
+    .profile-description p {
+      font-size: 1.08rem;
+      line-height: 1.6;
+      color: #4e3349;
+      max-width: 720px;
+      margin: 0 auto;
+      background: rgba(255, 240, 248, 0.6);
+      padding: 14px 20px;
+      border-radius: 60px;
+      border: 1px solid #ffd9e9;
+      box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.9), 0 4px 10px rgba(190, 110, 150, 0.1);
+      font-weight: 400;
+      word-break: break-word;
+    }
+
+    /* галерея 5 изображений */
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 18px;
+      margin: 18px 0 8px;
+    }
+
+    .gallery-item {
+      flex: 0 1 160px;
+      min-width: 130px;
+      aspect-ratio: 1 / 1.15;
+      border-radius: 32px;
+      background: #fce8f0;
+      box-shadow: 0 12px 24px -8px rgba(180, 70, 110, 0.25);
+      transition: transform 0.25s ease, box-shadow 0.3s ease;
+      overflow: hidden;
+      border: 2px solid white;
+      outline: 2px solid #ffd3e2;
+      outline-offset: 2px;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 24px 32px -10px rgba(190, 80, 130, 0.4);
+    }
+
+    .gallery-item img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: filter 0.2s;
+    }
+
+    .gallery-item img:hover {
+      filter: brightness(1.03) saturate(1.1);
+    }
+
+    /* лёгкий декоративный элемент (не фейк, просто стиль) */
+    .profile-badge {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin: 30px 0 6px;
+      font-size: 0.9rem;
+      color: #b85c84;
+      opacity: 0.8;
+    }
+
+    .profile-badge span {
+      background: #ffeef5;
+      padding: 6px 18px;
+      border-radius: 40px;
+      border: 1px solid #ffc1d6;
+      letter-spacing: 0.3px;
+      backdrop-filter: blur(4px);
+    }
+
+    /* адаптивность */
+    @media (max-width: 640px) {
+      .dating-card {
+        padding: 22px 16px 28px;
+        border-radius: 32px;
+      }
+
+      .gallery {
+        gap: 12px;
+      }
+
+      .gallery-item {
+        flex: 0 1 130px;
+        min-width: 110px;
+        border-radius: 24px;
+      }
+
+      .profile-description p {
+        font-size: 0.98rem;
+        padding: 12px 16px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .gallery-item {
+        flex: 0 1 120px;
+        min-width: 95px;
+      }
+
+      .profile-badge {
+        flex-wrap: wrap;
+      }
+    }
+
+    /* убираем возможные артефакты */
+    img {
+      max-width: 100%;
+      vertical-align: middle;
+    }
+
+    /* дополнительный мягкий фон, чтобы не было ощущения пустоты */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 20% 30%, rgba(255, 200, 220, 0.3) 0%, transparent 50%),
+                  radial-gradient(circle at 90% 70%, rgba(220, 160, 200, 0.25) 0%, transparent 55%);
+      pointer-events: none;
+      z-index: -1;
+    }
+  </style>
+</head>
+<body>
+  <main class="dating-card">
+    <!-- H1 заголовок -->
+    <div class="profile-header">
+      <h1>Ангелина, 27</h1>
+    </div>
+
+    <!-- Описание (description) -->
+    <div class="profile-description">
+      <p>
+        Люблю спонтанные путешествия, кофе по утрам и глубокие разговоры.
+        Ищу того, кто разделит со мной закаты и смешные мемы. 
+        Давай просто общаться и посмотрим, куда это приведёт ✨
+      </p>
+    </div>
+
+    <!-- 5 изображений (девушки) -->
+    <div class="gallery">
+      <div class="gallery-item">
+        <img src="/images/1.jpeg" alt="Фото профиля 1" loading="lazy">
+      </div>
+      <div class="gallery-item">
+        <img src="/images/2.jpeg" alt="Фото профиля 2" loading="lazy">
+      </div>
+      <div class="gallery-item">
+        <img src="/images/3.jpeg" alt="Фото профиля 3" loading="lazy">
+      </div>
+      <div class="gallery-item">
+        <img src="/images/4.jpeg" alt="Фото профиля 4" loading="lazy">
+      </div>
+      <div class="gallery-item">
+        <img src="/images/5.jpeg" alt="Фото профиля 5" loading="lazy">
+      </div>
+    </div>
+
+    <!-- Ненавязчивый дружелюбный бейдж, не нарушающий атмосферу -->
+    <div class="profile-badge">
+      <span>❤️ 120 симпатий</span>
+      <span>💬 34 сообщения</span>
+    </div>
+  </main>
+</body>
+</html>

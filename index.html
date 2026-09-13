@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>Знакомства · Профиль</title>
+  <title>Знакомства · Профили</title>
   <style>
-    /* reset & base */
+    /* ---------- RESET & BASE ---------- */
     * {
       margin: 0;
       padding: 0;
@@ -13,223 +13,357 @@
     }
 
     body {
-      background: linear-gradient(145deg, #f9f0f5 0%, #ffe8f0 100%);
-      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background: #f5f7fa;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      color: #1a1f2e;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
       min-height: 100vh;
-      padding: 20px 16px;
-      margin: 0;
-      color: #2d1b2b;
+      padding: 32px 20px 64px;
     }
 
-    .dating-card {
-      max-width: 1000px;
-      width: 100%;
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-radius: 48px;
-      box-shadow: 0 25px 50px -8px rgba(180, 60, 100, 0.25),
-                  0 8px 20px -6px rgba(0, 0, 0, 0.05);
-      padding: 32px 24px 40px;
-      border: 1px solid rgba(255, 220, 235, 0.8);
-      transition: all 0.2s ease;
-    }
-
-    /* заголовок h1 */
-    .profile-header {
-      text-align: center;
-      margin-bottom: 24px;
-    }
-
-    .profile-header h1 {
-      font-size: clamp(1.8rem, 6vw, 2.8rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      background: linear-gradient(135deg, #b3406e, #d45c8a);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-shadow: 0 2px 10px rgba(212, 92, 138, 0.15);
-      line-height: 1.2;
-    }
-
-    /* description */
-    .profile-description {
-      text-align: center;
-      margin-bottom: 32px;
-      padding: 0 12px;
-    }
-
-    .profile-description p {
-      font-size: 1.08rem;
-      line-height: 1.6;
-      color: #4e3349;
-      max-width: 720px;
+    /* ---------- CONTAINER ---------- */
+    .container {
+      max-width: 1200px;
       margin: 0 auto;
-      background: rgba(255, 240, 248, 0.6);
-      padding: 14px 20px;
-      border-radius: 60px;
-      border: 1px solid #ffd9e9;
-      box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.9), 0 4px 10px rgba(190, 110, 150, 0.1);
+    }
+
+    /* ---------- HEADER ---------- */
+    .page-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .page-header h1 {
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: #0f141e;
+      margin-bottom: 12px;
+    }
+
+    .page-header p {
+      font-size: 1.05rem;
+      color: #5b6579;
+      max-width: 600px;
+      margin: 0 auto;
       font-weight: 400;
-      word-break: break-word;
     }
 
-    /* галерея 5 изображений */
-    .gallery {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 18px;
-      margin: 18px 0 8px;
+    /* ---------- GRID ---------- */
+    .profiles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 24px;
+      margin-bottom: 48px;
     }
 
-    .gallery-item {
-      flex: 0 1 160px;
-      min-width: 130px;
-      aspect-ratio: 1 / 1.15;
-      border-radius: 32px;
-      background: #fce8f0;
-      box-shadow: 0 12px 24px -8px rgba(180, 70, 110, 0.25);
-      transition: transform 0.25s ease, box-shadow 0.3s ease;
+    /* ---------- PROFILE CARD ---------- */
+    .profile-card {
+      background: #ffffff;
+      border-radius: 20px;
       overflow: hidden;
-      border: 2px solid white;
-      outline: 2px solid #ffd3e2;
-      outline-offset: 2px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+      transition: transform 0.25s cubic-bezier(0.2, 0, 0, 1),
+                  box-shadow 0.25s cubic-bezier(0.2, 0, 0, 1);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #edf0f4;
     }
 
-    .gallery-item:hover {
-      transform: translateY(-6px) scale(1.02);
-      box-shadow: 0 24px 32px -10px rgba(190, 80, 130, 0.4);
+    .profile-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.04);
     }
 
-    .gallery-item img {
-      display: block;
+    /* ---------- IMAGE ---------- */
+    .card-image {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      background: #eef1f6;
+      overflow: hidden;
+    }
+
+    .card-image img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: filter 0.2s;
+      display: block;
+      transition: transform 0.4s cubic-bezier(0.2, 0, 0, 1);
     }
 
-    .gallery-item img:hover {
-      filter: brightness(1.03) saturate(1.1);
+    .profile-card:hover .card-image img {
+      transform: scale(1.04);
     }
 
-    /* лёгкий декоративный элемент (не фейк, просто стиль) */
-    .profile-badge {
+    /* online badge */
+    .online-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      width: 10px;
+      height: 10px;
+      background: #22c55e;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+      box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.25);
+    }
+
+    /* verified badge */
+    .verified-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: #ffffff;
+      border-radius: 50%;
+      width: 26px;
+      height: 26px;
       display: flex;
+      align-items: center;
       justify-content: center;
-      gap: 12px;
-      margin: 30px 0 6px;
-      font-size: 0.9rem;
-      color: #b85c84;
-      opacity: 0.8;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
     }
 
-    .profile-badge span {
-      background: #ffeef5;
-      padding: 6px 18px;
-      border-radius: 40px;
-      border: 1px solid #ffc1d6;
-      letter-spacing: 0.3px;
-      backdrop-filter: blur(4px);
+    .verified-badge svg {
+      width: 14px;
+      height: 14px;
+      fill: #3b82f6;
     }
 
-    /* адаптивность */
+    /* ---------- CARD INFO ---------- */
+    .card-info {
+      padding: 16px 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .card-name {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #0f141e;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      letter-spacing: -0.01em;
+    }
+
+    .card-name span {
+      font-size: 0.95rem;
+      font-weight: 400;
+      color: #6b7280;
+    }
+
+    .card-location {
+      font-size: 0.85rem;
+      color: #6b7280;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .card-location svg {
+      width: 12px;
+      height: 12px;
+      fill: #9ca3af;
+      flex-shrink: 0;
+    }
+
+    .card-bio {
+      font-size: 0.85rem;
+      color: #4b5563;
+      line-height: 1.4;
+      margin-top: 2px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* ---------- FOOTER ---------- */
+    .page-footer {
+      text-align: center;
+      padding-top: 24px;
+      border-top: 1px solid #e5e9f0;
+      font-size: 0.85rem;
+      color: #9aa3b2;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
     @media (max-width: 640px) {
-      .dating-card {
-        padding: 22px 16px 28px;
-        border-radius: 32px;
+      body {
+        padding: 24px 14px 48px;
       }
 
-      .gallery {
+      .page-header {
+        margin-bottom: 32px;
+      }
+
+      .profiles-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 16px;
+      }
+
+      .card-info {
+        padding: 12px 12px 14px;
+      }
+
+      .card-name {
+        font-size: 0.95rem;
+      }
+
+      .card-bio {
+        font-size: 0.8rem;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .profiles-grid {
+        grid-template-columns: 1fr 1fr;
         gap: 12px;
       }
 
-      .gallery-item {
-        flex: 0 1 130px;
-        min-width: 110px;
-        border-radius: 24px;
+      .card-info {
+        padding: 10px 10px 12px;
       }
 
-      .profile-description p {
-        font-size: 0.98rem;
-        padding: 12px 16px;
-      }
-    }
-
-    @media (max-width: 420px) {
-      .gallery-item {
-        flex: 0 1 120px;
-        min-width: 95px;
+      .card-name {
+        font-size: 0.88rem;
       }
 
-      .profile-badge {
-        flex-wrap: wrap;
+      .card-name span {
+        font-size: 0.82rem;
       }
     }
 
-    /* убираем возможные артефакты */
+    /* accessibility focus */
+    .profile-card:focus-visible {
+      outline: 2px solid #3b82f6;
+      outline-offset: 2px;
+    }
+
     img {
       max-width: 100%;
       vertical-align: middle;
     }
-
-    /* дополнительный мягкий фон, чтобы не было ощущения пустоты */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(circle at 20% 30%, rgba(255, 200, 220, 0.3) 0%, transparent 50%),
-                  radial-gradient(circle at 90% 70%, rgba(220, 160, 200, 0.25) 0%, transparent 55%);
-      pointer-events: none;
-      z-index: -1;
-    }
   </style>
 </head>
 <body>
-  <main class="dating-card">
-    <!-- H1 заголовок -->
-    <div class="profile-header">
-      <h1>Ангелина, 27</h1>
+  <div class="container">
+
+    <!-- HEADER -->
+    <header class="page-header">
+      <h1>Найди свою половинку</h1>
+      <p>Реальные анкеты, живые люди. Начни общение прямо сейчас.</p>
+    </header>
+
+    <!-- PROFILES GRID -->
+    <div class="profiles-grid" role="list">
+
+      <!-- PROFILE 1 -->
+      <article class="profile-card" role="listitem" tabindex="0">
+        <div class="card-image">
+          <img src="/images/1.jpeg" alt="Анна, 26" loading="lazy">
+          <span class="online-badge" aria-label="Онлайн"></span>
+          <span class="verified-badge" aria-label="Проверенный профиль">
+            <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+          </span>
+        </div>
+        <div class="card-info">
+          <div class="card-name">Анна <span>26</span></div>
+          <div class="card-location">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+            Москва
+          </div>
+          <div class="card-bio">Люблю искусство и кофе. Ищу серьёзные отношения.</div>
+        </div>
+      </article>
+
+      <!-- PROFILE 2 -->
+      <article class="profile-card" role="listitem" tabindex="0">
+        <div class="card-image">
+          <img src="/images/2.jpeg" alt="Мария, 24" loading="lazy">
+          <span class="online-badge" aria-label="Онлайн"></span>
+          <span class="verified-badge" aria-label="Проверенный профиль">
+            <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+          </span>
+        </div>
+        <div class="card-info">
+          <div class="card-name">Мария <span>24</span></div>
+          <div class="card-location">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+            Санкт-Петербург
+          </div>
+          <div class="card-bio">Путешествия, музыка, спорт. Открыта к новым знакомствам.</div>
+        </div>
+      </article>
+
+      <!-- PROFILE 3 -->
+      <article class="profile-card" role="listitem" tabindex="0">
+        <div class="card-image">
+          <img src="/images/3.jpeg" alt="Екатерина, 28" loading="lazy">
+          <span class="online-badge" aria-label="Онлайн"></span>
+          <span class="verified-badge" aria-label="Проверенный профиль">
+            <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+          </span>
+        </div>
+        <div class="card-info">
+          <div class="card-name">Екатерина <span>28</span></div>
+          <div class="card-location">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+            Казань
+          </div>
+          <div class="card-bio">Врач, люблю книги и природу. Ищу надёжного партнёра.</div>
+        </div>
+      </article>
+
+      <!-- PROFILE 4 -->
+      <article class="profile-card" role="listitem" tabindex="0">
+        <div class="card-image">
+          <img src="/images/4.jpeg" alt="Ольга, 25" loading="lazy">
+          <span class="online-badge" aria-label="Онлайн"></span>
+          <span class="verified-badge" aria-label="Проверенный профиль">
+            <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+          </span>
+        </div>
+        <div class="card-info">
+          <div class="card-name">Ольга <span>25</span></div>
+          <div class="card-location">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+            Новосибирск
+          </div>
+          <div class="card-bio">Дизайнер. Ценю искренность и чувство юмора.</div>
+        </div>
+      </article>
+
+      <!-- PROFILE 5 -->
+      <article class="profile-card" role="listitem" tabindex="0">
+        <div class="card-image">
+          <img src="/images/5.jpeg" alt="Дарья, 27" loading="lazy">
+          <span class="online-badge" aria-label="Онлайн"></span>
+          <span class="verified-badge" aria-label="Проверенный профиль">
+            <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+          </span>
+        </div>
+        <div class="card-info">
+          <div class="card-name">Дарья <span>27</span></div>
+          <div class="card-location">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+            Екатеринбург
+          </div>
+          <div class="card-bio">Маркетолог, любительница животных. Давай познакомимся!</div>
+        </div>
+      </article>
+
     </div>
 
-    <!-- Описание (description) -->
-    <div class="profile-description">
-      <p>
-        Люблю спонтанные путешествия, кофе по утрам и глубокие разговоры.
-        Ищу того, кто разделит со мной закаты и смешные мемы. 
-        Давай просто общаться и посмотрим, куда это приведёт ✨
-      </p>
-    </div>
+    <!-- FOOTER -->
+    <footer class="page-footer">
+      © 2025 · Все профили активны
+    </footer>
 
-    <!-- 5 изображений (девушки) -->
-    <div class="gallery">
-      <div class="gallery-item">
-        <img src="/images/1.jpeg" alt="Фото профиля 1" loading="lazy">
-      </div>
-      <div class="gallery-item">
-        <img src="/images/2.jpeg" alt="Фото профиля 2" loading="lazy">
-      </div>
-      <div class="gallery-item">
-        <img src="/images/3.jpeg" alt="Фото профиля 3" loading="lazy">
-      </div>
-      <div class="gallery-item">
-        <img src="/images/4.jpeg" alt="Фото профиля 4" loading="lazy">
-      </div>
-      <div class="gallery-item">
-        <img src="/images/5.jpeg" alt="Фото профиля 5" loading="lazy">
-      </div>
-    </div>
-
-    <!-- Ненавязчивый дружелюбный бейдж, не нарушающий атмосферу -->
-    <div class="profile-badge">
-      <span>❤️ 120 симпатий</span>
-      <span>💬 34 сообщения</span>
-    </div>
-  </main>
+  </div>
 </body>
 </html>
